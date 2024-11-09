@@ -103,10 +103,10 @@ public class Particle : MonoBehaviour
         foreach (Particle particle in particles)
         {
                 float distance = Vector3.Distance(particle.gameObject.GetComponent<Transform>().position, transform.position);
-            //float attraction= (float)(charge * particles[i].gameObject.GetComponent<Particle>().charge) / (float)System.Math.Pow(Vector3.Distance(transform.position, particles[i].gameObject.transform.position),4);
             if (distance != 0)
             {
-                pullforce = (particle.gameObject.GetComponent<Transform>().position - transform.position).normalized / distance * multiplier;
+                float attraction= (float)(charge * particle.gameObject.GetComponent<Particle>().charge) / distance * multiplier;
+                pullforce = (particle.gameObject.GetComponent<Transform>().position - transform.position).normalized * attraction;
             }
                 //force_x += transform.position.x * pullforce;
                 //force_x += transform.position.y * attraction;
@@ -115,7 +115,7 @@ public class Particle : MonoBehaviour
         //float acc_x = (force_x / mass) * 100;
         //float acc_y = (force_y / mass) * 100;
 
-        velocity += pullforce;
+        velocity += (pullforce * (0.2f-velocity.magnitude)/0.2f);
 
     }
 }

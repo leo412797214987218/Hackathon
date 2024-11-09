@@ -48,7 +48,6 @@ public class Radiation : MonoBehaviour
                 GameObject tempPositron = Instantiate(Particle, transform.position, Quaternion.identity);
                 tempPositron.GetComponent<Particle>().CreateParticle(new Vector3(-tempX, -tempY, 0), 0, 1, God);
             }
-            else{}
         }
         else if (number == 1 || number == 2)
         {
@@ -57,13 +56,12 @@ public class Radiation : MonoBehaviour
             float tempSpeed = Random.Range(10f, 90f) / (100f / speedOfLight) * Mathf.Pow(-1, Random.Range(1, 3));
             float tempX = Random.Range(-tempSpeed, tempSpeed);
             float tempY = (float)Math.Sqrt(Math.Pow(tempSpeed,2) - Math.Pow(tempX,2));
-            tempUpQuark.GetComponent<Particle>().CreateParticle(new Vector3(tempX, tempY, 0), 2.4f, 2/3, God);
+            tempUpQuark.GetComponent<Particle>().CreateParticle(new Vector3(tempX, tempY, 0), 2.4f, 2f/3f, God);
             if (chance > 1)
             {
                 GameObject tempAntiUpQuark = Instantiate(Particle, transform.position, Quaternion.identity);
-                tempAntiUpQuark.GetComponent<Particle>().CreateParticle(new Vector3(-tempX, -tempY, 0), 2.4f, -2/3, God);
+                tempAntiUpQuark.GetComponent<Particle>().CreateParticle(new Vector3(-tempX, -tempY, 0), 2.4f, -2f/3f, God);
             }
-            else{}
         }
         else if (number == 3 || number == 3)
         {
@@ -72,13 +70,12 @@ public class Radiation : MonoBehaviour
             float tempSpeed = Random.Range(10f, 90f) / (100f / speedOfLight) * Mathf.Pow(-1, Random.Range(1, 3));
             float tempX = Random.Range(-tempSpeed, tempSpeed);
             float tempY = (float)Math.Sqrt(Math.Pow(tempSpeed,2) - Math.Pow(tempX,2));
-            tempDownQuark.GetComponent<Particle>().CreateParticle(new Vector3(tempX, tempY, 0), 4.8f, -1/3, God);
+            tempDownQuark.GetComponent<Particle>().CreateParticle(new Vector3(tempX, tempY, 0), 4.8f, -1f/3f, God);
             if (chance > 1)
             {
                 GameObject tempAntiDownQuark = Instantiate(Particle, transform.position, Quaternion.identity);
-                tempAntiDownQuark.GetComponent<Particle>().CreateParticle(new Vector3(-tempX, -tempY, 0), 4.8f, 1/3, God);
+                tempAntiDownQuark.GetComponent<Particle>().CreateParticle(new Vector3(-tempX, -tempY, 0), 4.8f, 1f/3f, God);
             }
-            else{}
         }
         Destroy(gameObject);
     }

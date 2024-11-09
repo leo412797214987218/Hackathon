@@ -126,7 +126,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  multiplier: 1
+  multiplier: 0.001
   god: {fileID: 0}
 --- !u!58 &-7817562100031962051
 CircleCollider2D:
