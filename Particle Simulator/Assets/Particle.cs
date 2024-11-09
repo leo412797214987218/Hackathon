@@ -19,6 +19,10 @@ public class Particle : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (velocity.magnitude > 0.02)
+        {
+            velocity = velocity * (0.019f * velocity.magnitude);
+        }
         transform.position = transform.position + velocity;
 
         //Physics2D.OverlapCircle(transform.position, AttarctionCheckDistance, contactFilter, NearbyQuarks);
@@ -115,7 +119,7 @@ public class Particle : MonoBehaviour
         //float acc_x = (force_x / mass) * 100;
         //float acc_y = (force_y / mass) * 100;
 
-        velocity += (pullforce * (0.2f-velocity.magnitude)/0.2f);
+        velocity += (pullforce * (0.02f-velocity.magnitude)/0.02f);
 
     }
 }
