@@ -15,18 +15,22 @@ public class Particle : MonoBehaviour
     public ContactFilter2D contactFilter = new ContactFilter2D();
     public Collider2D[] NearbyQuarks = new Collider2D[5];
     public float multiplier;
+    public God god;
 
     void FixedUpdate()
     {
         transform.position = transform.position + velocity;
 
-        Physics2D.OverlapCircle(transform.position, AttarctionCheckDistance, contactFilter, NearbyQuarks);
-        print(NearbyQuarks);
-        attraction(NearbyQuarks);
+        //Physics2D.OverlapCircle(transform.position, AttarctionCheckDistance, contactFilter, NearbyQuarks);
+        //print(NearbyQuarks);
+        attraction(god.particleList);
     }
 
-    public void CreateParticle(Vector3 v, float m, float c )
+    public void CreateParticle(Vector3 v, float m, float c, God tGod)
     {
+        god = tGod;
+        god.particleList.Add(this);
+
         mass = m;
         charge= c;
         velocity= v;
@@ -91,28 +95,27 @@ public class Particle : MonoBehaviour
     }
 
 
-    private void attraction(Collider2D[] particles)
+    private void attraction(List<Particle> particles)
     {
-        float force_x = 0;
-        float force_y = 0;
+        //float force_x = 0;
+        //float force_y = 0;
         Vector3 pullforce = new Vector3(0,0,0);
-        for (int i = 0; i < particles.Length; i++)
+        foreach (Particle particle in particles)
         {
-            if (particles[i] == null)
+                float distance = Vector3.Distance(particle.gameObject.GetComponent<Transform>().position, transform.position);
+            //float attraction= (float)(charge * particles[i].gameObject.GetComponent<Particle>().charge) / (float)System.Math.Pow(Vector3.Distance(transform.position, particles[i].gameObject.transform.position),4);
+            if (distance != 0)
             {
-                break;
-            }    
-                float distance = Vector3.Distance(particles[i].gameObject.GetComponent<Transform>().position, transform.position);
-                //float attraction= (float)(charge * particles[i].gameObject.GetComponent<Particle>().charge) / (float)System.Math.Pow(Vector3.Distance(transform.position, particles[i].gameObject.transform.position),4);
-                pullforce = (particles[i].gameObject.GetComponent<Transform>().position - transform.position).normalized/distance*multiplier;
-                //force_x += transform.position.x * attraction;
+                pullforce = (particle.gameObject.GetComponent<Transform>().position - transform.position).normalized / distance * multiplier;
+            }
+                //force_x += transform.position.x * pullforce;
                 //force_x += transform.position.y * attraction;
         }
 
-        float acc_x = (force_x / mass) * 100000000;
-        float acc_y = (force_y / mass) * 100000000;
+        //float acc_x = (force_x / mass) * 100;
+        //float acc_y = (force_y / mass) * 100;
 
-        velocity = velocity + pullforce;
+        velocity += pullforce;
 
     }
 }

@@ -9,6 +9,7 @@ public class Radiation : MonoBehaviour
     public float speedOfLight;
     public GameObject Particle;
     public int ChanceOfPP;
+    public God God;
 
     void Start()
     {
@@ -41,11 +42,11 @@ public class Radiation : MonoBehaviour
             float tempSpeed = Random.Range(10f, 90f) / (100f / speedOfLight) * Mathf.Pow(-1, Random.Range(1, 3));
             float tempX = Random.Range(-tempSpeed, tempSpeed);
             float tempY = (float)Math.Sqrt(Math.Pow(tempSpeed,2) - Math.Pow(tempX,2));
-            tempElectron.GetComponent<Particle>().CreateParticle(new Vector3(tempX, tempY, 0), 0, -1);
+            tempElectron.GetComponent<Particle>().CreateParticle(new Vector3(tempX, tempY, 0), 0, -1, God);
             if (chance > 1)
             {
                 GameObject tempPositron = Instantiate(Particle, transform.position, Quaternion.identity);
-                tempPositron.GetComponent<Particle>().CreateParticle(new Vector3(-tempX, -tempY, 0), 0, 1);
+                tempPositron.GetComponent<Particle>().CreateParticle(new Vector3(-tempX, -tempY, 0), 0, 1, God);
             }
             else{}
         }
@@ -56,11 +57,11 @@ public class Radiation : MonoBehaviour
             float tempSpeed = Random.Range(10f, 90f) / (100f / speedOfLight) * Mathf.Pow(-1, Random.Range(1, 3));
             float tempX = Random.Range(-tempSpeed, tempSpeed);
             float tempY = (float)Math.Sqrt(Math.Pow(tempSpeed,2) - Math.Pow(tempX,2));
-            tempUpQuark.GetComponent<Particle>().CreateParticle(new Vector3(tempX, tempY, 0), 2.4f, 2/3);
+            tempUpQuark.GetComponent<Particle>().CreateParticle(new Vector3(tempX, tempY, 0), 2.4f, 2/3, God);
             if (chance > 1)
             {
                 GameObject tempAntiUpQuark = Instantiate(Particle, transform.position, Quaternion.identity);
-                tempAntiUpQuark.GetComponent<Particle>().CreateParticle(new Vector3(-tempX, -tempY, 0), 2.4f, -2/3);
+                tempAntiUpQuark.GetComponent<Particle>().CreateParticle(new Vector3(-tempX, -tempY, 0), 2.4f, -2/3, God);
             }
             else{}
         }
@@ -71,11 +72,11 @@ public class Radiation : MonoBehaviour
             float tempSpeed = Random.Range(10f, 90f) / (100f / speedOfLight) * Mathf.Pow(-1, Random.Range(1, 3));
             float tempX = Random.Range(-tempSpeed, tempSpeed);
             float tempY = (float)Math.Sqrt(Math.Pow(tempSpeed,2) - Math.Pow(tempX,2));
-            tempDownQuark.GetComponent<Particle>().CreateParticle(new Vector3(tempX, tempY, 0), 4.8f, -1/3);
+            tempDownQuark.GetComponent<Particle>().CreateParticle(new Vector3(tempX, tempY, 0), 4.8f, -1/3, God);
             if (chance > 1)
             {
                 GameObject tempAntiDownQuark = Instantiate(Particle, transform.position, Quaternion.identity);
-                tempAntiDownQuark.GetComponent<Particle>().CreateParticle(new Vector3(-tempX, -tempY, 0), 4.8f, 1/3);
+                tempAntiDownQuark.GetComponent<Particle>().CreateParticle(new Vector3(-tempX, -tempY, 0), 4.8f, 1/3, God);
             }
             else{}
         }
