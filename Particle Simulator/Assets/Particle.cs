@@ -54,22 +54,22 @@ public class Particle : MonoBehaviour
         ColorUtility.TryParseHtmlString("#FF0000", out red);
         ColorUtility.TryParseHtmlString("#8B0000", out darkRed);
 
-        if (charge==2/3){
+        if (charge==2/3f){
             type = "u";
             gameObject.GetComponent<SpriteRenderer>().color = lightGreen;
             gameObject.AddComponent<Quark>();
         }
-        else if (charge==-2/3){
+        else if (charge==-2/3f){
             type = "au";
             gameObject.GetComponent<SpriteRenderer>().color = darkGreen;
             gameObject.AddComponent<Quark>();
         }
-        else if (charge==-1/3){
+        else if (charge==-1/3f){
             type = "d";
             gameObject.GetComponent<SpriteRenderer>().color = pink;
             gameObject.AddComponent<Quark>();
         }
-        else if (charge==1/3){
+        else if (charge==1/3f){
             type = "ad";
             gameObject.GetComponent<SpriteRenderer>().color = purple;
             gameObject.AddComponent<Quark>();
@@ -109,7 +109,7 @@ public class Particle : MonoBehaviour
                 float distance = Vector3.Distance(particle.gameObject.GetComponent<Transform>().position, transform.position);
             if (distance != 0)
             {
-                float attraction= (float)(charge * particle.gameObject.GetComponent<Particle>().charge) / distance * multiplier;
+                float attraction= (float)(charge * particle.gameObject.GetComponent<Particle>().charge) / (distance) * multiplier;
                 pullforce = (particle.gameObject.GetComponent<Transform>().position - transform.position).normalized * attraction;
             }
                 //force_x += transform.position.x * pullforce;
@@ -119,7 +119,7 @@ public class Particle : MonoBehaviour
         //float acc_x = (force_x / mass) * 100;
         //float acc_y = (force_y / mass) * 100;
 
-        velocity += (pullforce * (0.02f-velocity.magnitude)/0.02f);
+        velocity += pullforce * (0.02f-velocity.magnitude)/0.02f;
 
     }
 }

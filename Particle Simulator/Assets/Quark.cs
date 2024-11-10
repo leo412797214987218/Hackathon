@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Quark : MonoBehaviour
+public class Quark : Particle
 {
     public float StrongForce;
     public ContactFilter2D contactFilter = new ContactFilter2D();

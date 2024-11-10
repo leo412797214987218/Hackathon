@@ -39,11 +39,9 @@ public class Radiation : MonoBehaviour
         if (number == 0)
         {
             GameObject tempElectron = Instantiate(Particle, transform.position, Quaternion.identity);
-            float tempSpeed = Random.Range(10f, 70f) / (100f / speedOfLight) * Mathf.Pow(-1, Random.Range(1, 3));
+            float tempSpeed = Random.Range(1f, 20f) / (5000f / speedOfLight) * Mathf.Pow(-1, Random.Range(1, 3));
             float tempX = Random.Range(-tempSpeed, tempSpeed);
             float tempY = (float)Math.Sqrt(Math.Pow(tempSpeed,2) - Math.Pow(tempX,2));
-            print(tempX);
-            print(tempY);
             tempElectron.GetComponent<Particle>().CreateParticle(new Vector3(tempX, tempY, 0), 0, -1, God);
             if (chance > 1)
             {
@@ -55,7 +53,7 @@ public class Radiation : MonoBehaviour
         {
             // takes an up and anti-up quark
             GameObject tempUpQuark = Instantiate(Particle, transform.position, Quaternion.identity);
-            float tempSpeed = Random.Range(10f, 70f) / (100f / speedOfLight) * Mathf.Pow(-1, Random.Range(1, 3));
+            float tempSpeed = Random.Range(1f, 20f) / (5000f / speedOfLight) * Mathf.Pow(-1, Random.Range(1, 3));
             float tempX = Random.Range(-tempSpeed, tempSpeed);
             float tempY = (float)Math.Sqrt(Math.Pow(tempSpeed,2) - Math.Pow(tempX,2));
             tempUpQuark.GetComponent<Particle>().CreateParticle(new Vector3(tempX, tempY, 0), 2.4f, 2f/3f, God);
@@ -69,7 +67,7 @@ public class Radiation : MonoBehaviour
         {
             // takes a down and anti-down quark
             GameObject tempDownQuark = Instantiate(Particle, transform.position, Quaternion.identity);
-            float tempSpeed = Random.Range(10f, 70f) / (100f / speedOfLight) * Mathf.Pow(-1, Random.Range(1, 3));
+            float tempSpeed = Random.Range(1f, 20f) / (5000f / speedOfLight) * Mathf.Pow(-1, Random.Range(1, 3));
             float tempX = Random.Range(-tempSpeed, tempSpeed);
             float tempY = (float)Math.Sqrt(Math.Pow(tempSpeed,2) - Math.Pow(tempX,2));
             tempDownQuark.GetComponent<Particle>().CreateParticle(new Vector3(tempX, tempY, 0), 4.8f, -1f/3f, God);
