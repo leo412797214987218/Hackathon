@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 8967864632106678019}
   - component: {fileID: 6092049164502107023}
   - component: {fileID: -1352158362258433300}
+  - component: {fileID: 1874969808466640741}
+  - component: {fileID: 559748610621943186}
   m_Layer: 0
   m_Name: Radiation
   m_TagString: Untagged
@@ -103,9 +105,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   energy: 0
   velocity: {x: 0, y: 0, z: 0}
-  speedOfLight: 0
-  Particle: {fileID: 3160215192861162783, guid: c25686b5bfb778e45803088554b2458f, type: 3}
-  ChanceOfPP: 250
+  speedOfLight: 0.5
+  particlePrefab: {fileID: 3160215192861162783, guid: c25686b5bfb778e45803088554b2458f, type: 3}
+  pairProductionChance: 300
 --- !u!96 &-1352158362258433300
 TrailRenderer:
   serializedVersion: 3
@@ -213,3 +215,66 @@ TrailRenderer:
   m_Autodestruct: 0
   m_Emitting: 1
   m_ApplyActiveColorSpace: 1
+--- !u!58 &1874969808466640741
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6103937659670079133}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_Radius: 0.5
+--- !u!50 &559748610621943186
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6103937659670079133}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
