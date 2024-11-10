@@ -149,7 +149,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RadioationTemplate: {fileID: 6103937659670079133, guid: a3cc7b85690bdcd41bba7595766992d0, type: 3}
-  startingRadiation: 20
+  startingRadiation: 60
   speedOfLight: 0.3
   particle: {fileID: 3160215192861162783, guid: c25686b5bfb778e45803088554b2458f, type: 3}
 --- !u!4 &1700545082
