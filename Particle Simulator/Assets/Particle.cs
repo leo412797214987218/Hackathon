@@ -27,6 +27,7 @@ public class Particle : MonoBehaviour
 
     void FixedUpdate()
     {
+        //if out of bounds, kill
         if (transform.position.y > 105 || transform.position.y < -105)
         {
             Destroy(gameObject);
@@ -37,13 +38,14 @@ public class Particle : MonoBehaviour
         }
 
 
-
+        //if breaching the laws of special relativity, slow it down
         if (velocity.magnitude > lightSpeed)
         {
             velocity = velocity * (lightSpeed * 0.95f / velocity.magnitude);
         }
         transform.position = transform.position + velocity;
 
+        //Calculate the acceleration of each particle on a given frame based on the summative attraction to every "nearby" particle
         Physics2D.OverlapCircle(transform.position, AttarctionCheckDistance, contactFilter, NearbyQuarks);
         attraction(NearbyQuarks);
     }
@@ -55,6 +57,7 @@ public class Particle : MonoBehaviour
         velocity= v;
         lightSpeed = l;
 
+        //Colours!
         Color lightGreen;
         ColorUtility.TryParseHtmlString("#90EE90", out lightGreen);
         Color darkGreen;
@@ -74,6 +77,8 @@ public class Particle : MonoBehaviour
         ColorUtility.TryParseHtmlString("#D3D3D3", out lightGrey);
         ColorUtility.TryParseHtmlString("#545454", out darkGrey);
 
+        //Basing particle properties from its unique charge
+        //(includes mass if charge not unique)
         if (charge==2/3f){
             type = "u";
             gameObject.GetComponent<SpriteRenderer>().color = lightGreen;
@@ -126,15 +131,17 @@ public class Particle : MonoBehaviour
         
     }
 
-
+    //Calculates the attraction to every nearby (for performance reasons) particle
     private void attraction(Collider2D[] particles)
     {
         pullforce = Vector3.zero;
+        //for each particle, add its pull to the net pull
         for (int i = 0; i < particles.Length; i++)
         {
             if (particles[i] != null && particles[i].gameObject.GetComponent<Particle>()!= null)
             {
                 float distance = Vector3.Distance(particles[i].gameObject.GetComponent<Transform>().position, transform.position);
+                //If the distance is 0 for any reason we get a million billion NaN errors unless we filter it 
                 if (distance != 0)
                 {
                     float attraction= (float)(charge * particles[i].gameObject.GetComponent<Particle>().charge) / (distance) * multiplier;
@@ -147,12 +154,18 @@ public class Particle : MonoBehaviour
 
     }
 
+    //The annihilation function
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        //Collision can only be 'hosted' by one participant particle or else we'd get double results
+        //Double results leads to one wave -> two particles -> two waves -> four particles
+        //Reverse entropy that crashes your laptop
+        //So we use this clause to ensure that the slower particle alone is the host
         if (collision.gameObject.GetComponent<Particle>()== null || velocity.magnitude > collision.gameObject.GetComponent<Particle>().velocity.magnitude || annihilated)
         {
             return;
         }
+        //Quark annihilation (one wave emitted)
         else if (collision.gameObject.GetComponent<Particle>().type == "u" && type == "au" || collision.gameObject.GetComponent<Particle>().type == "au" && type == "u" ||
         collision.gameObject.GetComponent<Particle>().type == "e" && type == "ae" || collision.gameObject.GetComponent<Particle>().type == "ae" && type == "e"
         || collision.gameObject.GetComponent<Particle>().type == "d" && type == "ad" || collision.gameObject.GetComponent<Particle>().type == "ad" && type == "d") 
@@ -163,6 +176,7 @@ public class Particle : MonoBehaviour
             Destroy(collision.gameObject);
             Destroy(gameObject);
         }
+        //Hadron annihilation (three waves emitted, three quarks in a hadron)
         else if (collision.gameObject.GetComponent<Particle>().type == "p" && type == "ap" || collision.gameObject.GetComponent<Particle>().type == "ap" && type == "p" ||
         collision.gameObject.GetComponent<Particle>().type == "n" && type == "an" || collision.gameObject.GetComponent<Particle>().type == "an" && type == "n")
         {
@@ -176,6 +190,7 @@ public class Particle : MonoBehaviour
             Destroy(collision.gameObject);
             Destroy(gameObject);
         }
+        //Proton-electron combination into a neutron
         else if (collision.gameObject.GetComponent<Particle>().type == "p" && type == "e" || collision.gameObject.GetComponent<Particle>().type == "e" && type == "p")
         {
             annihilated = true;
@@ -185,6 +200,7 @@ public class Particle : MonoBehaviour
             Destroy(collision.gameObject);
             Destroy(gameObject);
         }
+        //Antimatter version of the last interaction
         else if (collision.gameObject.GetComponent<Particle>().type == "ap" && type == "ae" || collision.gameObject.GetComponent<Particle>().type == "ae" && type == "ap")
         {
             annihilated = true;
